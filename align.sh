@@ -1,5 +1,14 @@
 #!/bin/bash
 
+################################################################################
+## Project Title: Workflow for analyzing ChIP-seq data
+## Student: David Arambilet Morilla
+## Supervisor: Dr. Jose Luis Mosquera Mayo
+## Description: Mapping of the trimmed reads into a SAM file that then will be processed into a BAM file.
+## Date: 2022.05.16  (First release: 2022.05.12)
+################################################################################
+
+
 #SBATCH -p long
 #SBATCH -c 4
 #SBATCH -N 1 
@@ -18,7 +27,7 @@ BAMDATA="/projects/cancer/pipeline/bam_files"
 cd ${TRIMDATA}
 # Alignment
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/bowtie2machalen.img bowtie2 -x ${REFGENOME}/Human_GRCh38/Human_GRCh38 -U example_input_trimmed.fq -p 4 --no-unal -S ${BAMDATA}/output_input.sam
+singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/bowtie2machalen.img bowtie2 -x ${REFGENOME}/Human_GRCh38/Human_GRCh38 -U input_hepg2_trimmed.fq -p 4 --no-unal -S ${BAMDATA}/output_input.sam
 
 # Processing the SAM file into an indexed and sorted BAM file
 cd ${BAMDATA}
@@ -36,9 +45,9 @@ singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_c
 
 # Sort and index final BAM files
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools sort unique_input.bam -o sorted_unique_example_input.bam
+singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools sort unique_input.bam -o sorted_unique_input_hepg2.bam
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools index sorted_unique_example_input.bam
+singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools index sorted_unique_input_hepg2.bam
 
 # Remove sam and headers
 

@@ -1,3 +1,11 @@
+################################################################################
+## Project Title: Workflow for analyzing ChIP-seq data
+## Student: David Arambilet Morilla
+## Supervisor: Dr. Jose Luis Mosquera Mayo
+## Description: Mapping of the trimmed reads into a SAM file that then will be processed into a BAM file.
+## Date: 2022.05.25  (First release: 2022.05.17)
+################################################################################
+
 #Load all libraries...
 library(ChIPseeker)
 library(TxDb.Hsapiens.UCSC.hg38.knownGene)
@@ -9,7 +17,7 @@ library(data.table)
 setwd("C:/Users/darambilet/Desktop/")
 
 # Read bed file (example.bed)
-peaks<-readPeakFile("degs_chip_down.bed")
+peaks<-readPeakFile("myc_cml.bed")
 
 # Load annotation database
 txdb <- TxDb.Hsapiens.UCSC.hg38.knownGene
@@ -22,6 +30,6 @@ plotAnnoBar(peakAnnot)
 
 # Export results in excel format
 dataf_peakannot<-as.data.frame(peakAnnot)
-openxlsx::write.xlsx(dataf_peakannot,"example.xlsx")
+openxlsx::write.xlsx(dataf_peakannot,"myc_cml.xlsx")
 
 

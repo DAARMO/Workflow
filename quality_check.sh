@@ -1,4 +1,14 @@
 #!/bin/bash
+
+################################################################################
+## Project Title: Workflow for analyzing ChIP-seq data
+## Student: David Arambilet Morilla
+## Supervisor: Dr. Jose Luis Mosquera Mayo
+## Description: Quality check of the raw .fastq data.
+## Date: 2022.05.16  (First release: 2022.05.12)
+################################################################################
+
+
 #SBATCH -p fast
 #SBATCH -c 2
 #SBATCH -N 1 

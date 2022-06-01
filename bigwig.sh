@@ -1,5 +1,14 @@
 #!/bin/bash
 
+################################################################################
+## Project Title: Workflow for analyzing ChIP-seq data
+## Student: David Arambilet Morilla
+## Supervisor: Dr. Jose Luis Mosquera Mayo
+## Description: Generation of Bigwig file for the data visualization.
+## Date: 2022.05.16  (First release: 2022.05.12)
+################################################################################
+
+
 #SBATCH -p fast
 #SBATCH -c 4
 #SBATCH -N 1 
@@ -17,5 +26,5 @@ BAMDATA="/projects/cancer/pipeline/bam_files"
 
 cd ${BAMDATA}
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/envs/__deeptools@2.5.1/bin/python /tool_deps/_conda/envs/__deeptools@2.5.1/bin/bamCoverage -b sorted_unique_example.bam --binSize 10 --normalizeUsingRPKM -o ${ROOTDIR}/pipeline/output_files/example.bw
+singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/envs/__deeptools@2.5.1/bin/python /tool_deps/_conda/envs/__deeptools@2.5.1/bin/bamCoverage -b sorted_unique_myc_input.bam --binSize 10 --normalizeUsingRPKM -o ${ROOTDIR}/pipeline/output_files/myc_input.bw
 

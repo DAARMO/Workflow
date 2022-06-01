@@ -1,15 +1,23 @@
+################################################################################
+## Project Title: Workflow for analyzing ChIP-seq data
+## Student: David Arambilet Morilla
+## Supervisor: Dr. Jose Luis Mosquera Mayo
+## Description: Mapping of the trimmed reads into a SAM file that then will be processed into a BAM file.
+## Date: 2022.05.25  (First release: 2022.05.25)
+################################################################################
+
 library(VennDiagram)
 
-# Generamos las listas que queramos comparar
+# Generating the lists to compare
 cml_our<-read.table("cml_genes_pipeline.txt")
 cml_pub<-read.table("cml_genes_published.txt")
 geneLists <- list(cml_our,cml_pub)
 
-# Para eliminar si hubiera huecos vacios (NA)
+# Remove NA values
 geneLists <- lapply(geneLists, function(x) x[!is.na(x)]) 
 VENN.LIST <- geneLists
 
-# Opciones de plot (colores, tamaño cifras, rotulos, etc).
+# Customization of the venn diagram
 venn.plot <- venn.diagram(VENN.LIST, euler.d=TRUE, scaled=TRUE ,NULL, 
                           fill=c("dodgerblue", "orange"),
                           alpha=c(0.5,0.5),
@@ -18,7 +26,7 @@ venn.plot <- venn.diagram(VENN.LIST, euler.d=TRUE, scaled=TRUE ,NULL,
                           category=c("Pipeline", "published"),
                           main = "CML genes pipeline vs published")
 
-# Para ver el plot se usa la funcion grid.draw() 
+# Ploting the venn diagram
 grid.draw(venn.plot)
 
 
