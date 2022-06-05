@@ -17,7 +17,7 @@
 #SBATCH -o qual.out
 #SBATCH -e qual.err
 
-ROOTDIR="/projects/cancer"
+ROOT="/projects/cancer"
 IMAGES="/projects/cancer/images"
 RAWDATA="/projects/cancer/pipeline/raw_files"
 TRIMDATA="/projects/cancer/pipeline/Trim_data"
@@ -26,4 +26,4 @@ BAMDATA="/projects/cancer/pipeline/bam_files"
 OUTPUT="/projects/cancer/pipeline/output_files"
 
 # Giving as input raw FastQ files or Trimmed FastQ files it generates a report
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/fastqcmachalen.img fastqc ${RAWDATA}/example.fastq -o ${ROOTDIR}/fastqc_files
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/fastqcmachalen.img fastqc ${RAWDATA}/example.fastq -o ${ROOT}/fastqc_files
