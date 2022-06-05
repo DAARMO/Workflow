@@ -16,7 +16,7 @@
 #SBATCH -o heatmap_d.out
 #SBATCH -e heatmap_d.err
 
-ROOTDIR="/projects/cancer"
+ROOT="/projects/cancer"
 IMAGES="/projects/cancer/images"
 RAWDATA="/projects/cancer/pipeline/raw_files"
 TRIMDATA="/projects/cancer/pipeline/Trim_data"
@@ -28,7 +28,7 @@ OUTPUT="/projects/cancer/pipeline/output_files"
 cd ${OUTPUT}
 
 # Design the matrix where the specific regions in a given BED file are checked in different BigWig files
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/envs/__deeptools@2.5.1/bin/python /tool_deps/_conda/envs/__deeptools@2.5.1/bin/computeMatrix reference-point -R myc_cml_peaks_peaks.narrowPeak --referencePoint TSS -S myc_cml.bw myc_cml_published.bigWig -b 10000 -a 10000 -p 6 --samplesLabel Workflow Published -o matrix_scaled.gz --sortRegions descend --outFileNameMatrix matrix_scaled.tab --outFileSortedRegions genes_sorted.bed
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/deepTools.simg /tool_deps/_conda/envs/__deeptools@2.5.1/bin/python /tool_deps/_conda/envs/__deeptools@2.5.1/bin/computeMatrix reference-point -R myc_cml_peaks_peaks.narrowPeak --referencePoint TSS -S myc_cml.bw myc_cml_published.bigWig -b 10000 -a 10000 -p 6 --samplesLabel Workflow Published -o matrix_scaled.gz --sortRegions descend --outFileNameMatrix matrix_scaled.tab --outFileSortedRegions genes_sorted.bed
 
 # Plot the matrix in a heatmap
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/envs/__deeptools@2.5.1/bin/python /tool_deps/_conda/envs/__deeptools@2.5.1/bin/plotHeatmap -m matrix_scaled.gz --colorMap YlGnBu --legendLocation none --sortRegions no --missingDataColor "#FFF6EB" -out heatmap.pdf
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/deepTools.simg /tool_deps/_conda/envs/__deeptools@2.5.1/bin/python /tool_deps/_conda/envs/__deeptools@2.5.1/bin/plotHeatmap -m matrix_scaled.gz --colorMap YlGnBu --legendLocation none --sortRegions no --missingDataColor "#FFF6EB" -out heatmap.pdf
