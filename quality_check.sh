@@ -25,6 +25,5 @@ REFGENOME="/projects/cancer/db_files"
 BAMDATA="/projects/cancer/pipeline/bam_files"
 OUTPUT="/projects/cancer/pipeline/output_files"
 
-### FASTQC QUALITY REPORT ###
-
+# Giving as input raw FastQ files or Trimmed FastQ files it generates a report
 singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/fastqcmachalen.img fastqc ${RAWDATA}/example.fastq -o ${ROOTDIR}/fastqc_files
