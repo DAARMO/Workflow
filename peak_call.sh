@@ -17,7 +17,7 @@
 #SBATCH -o peak.out
 #SBATCH -e peak.err
 
-ROOTDIR="/projects/cancer"
+ROOT="/projects/cancer"
 RAWDATA="/projects/cancer/pipeline/raw_files"
 IMAGES="/projects/cancer/images"
 TRIMDATA="/projects/cancer/pipeline/Trim_data"
@@ -27,4 +27,4 @@ BAMDATA="/projects/cancer/pipeline/bam_files"
 
 cd ${BAMDATA}
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/macs2.simg macs2 callpeak -B -t sorted_unique_myc_cml.bam -c sorted_unique_myc_input.bam -n ${ROOTDIR}/pipeline/output_files/myc_cml_peaks
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/macs2.simg macs2 callpeak -B -t sorted_unique_myc_cml.bam -c sorted_unique_myc_input.bam -n ${ROOT}/pipeline/output_files/myc_cml_peaks
