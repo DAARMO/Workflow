@@ -16,13 +16,13 @@
 #SBATCH -o getfasta.out
 #SBATCH -e getfasta.err
 
-ROOTDIR="/projects/cancer"
+ROOT="/projects/cancer"
 IMAGES="/projects/cancer/images"
 RAWDATA="/projects/cancer/pipeline/raw_files"
 TRIMDATA="/projects/cancer/pipeline/Trim_data"
 REFGENOME="/projects/cancer/db_files"
 BAMDATA="/projects/cancer/pipeline/bam_files"
 
-cd ${ROOTDIR}/pipeline/output_files
+cd ${ROOT}/pipeline/output_files
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/bedtools.simg bedtools getfasta -fi ${REFGENOME}/Human_GRCh38/hg38.fa -bed myc_cml.bed  -fo myc_cml.fasta
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/bedtools.simg bedtools getfasta -fi ${REFGENOME}/Human_GRCh38/hg38.fa -bed myc_cml.bed  -fo myc_cml.fasta
