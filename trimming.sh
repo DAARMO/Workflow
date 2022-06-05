@@ -18,9 +18,14 @@
 #SBATCH -e trim.err
 
 ROOT="/projects/cancer"
-RAWDATA="/projects/cancer/pipeline/raw_files"
 IMAGES="/projects/cancer/images"
+RAWDATA="/projects/cancer/pipeline/raw_files"
+TRIMDATA="/projects/cancer/pipeline/Trim_data"
+REFGENOME="/projects/cancer/db_files"
+BAMDATA="/projects/cancer/pipeline/bam_files"
+OUTPUT="/projects/cancer/pipeline/output_files"
 
 cd ${RAWDATA}
 
+# Giving a raw FastQ file it performs the adapter trimming of the data
 singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/trimgalore.simg trim_galore -q 30 -o ${ROOT}/pipeline/Trim_data input_hepg2.fastq 
