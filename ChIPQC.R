@@ -6,11 +6,16 @@
 ## Date: 2022.05.30  (First release: 2022.05.30)
 ################################################################################
 
+# Load libraries
 library(ChIPQC)
+library(TxDb.Hsapiens.UCSC.hg38.knownGene)
+
 # Load the summary file
 samples<-read.csv("samples.csv")
+
 # Create the ChIPQC object
 chipObj<-ChIPQC(samples, annotation="hg38")
+
 # Obtain the quality report
 ChIPQCreport(chipObj, reportName="ChIPQC report: myc", reportFolder="ChIPQCreport")
 
