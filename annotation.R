@@ -6,17 +6,16 @@
 ## Date: 2022.05.25  (First release: 2022.05.17)
 ################################################################################
 
-#Load all libraries...
+#Load libraries
 library(ChIPseeker)
 library(TxDb.Hsapiens.UCSC.hg38.knownGene)
-library(TxDb.Hsapiens.UCSC.hg19.knownGene)
 library(openxlsx)
 library(data.table)
 
-# Set working directories (IN PATH ADD THE PATH OF THE BED FILES)
+# Set working directories
 setwd("C:/Users/darambilet/Desktop/")
 
-# Read bed file (example.bed)
+# Read bed file
 peaks<-readPeakFile("myc_cml.bed")
 
 # Load annotation database
