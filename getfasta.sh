@@ -21,6 +21,7 @@ IMAGES="/projects/cancer/images"
 RAWDATA="/projects/cancer/pipeline/raw_files"
 TRIMDATA="/projects/cancer/pipeline/Trim_data"
 REFGENOME="/projects/cancer/db_files"
+BAMDATA="/projects/cancer/pipeline/bam_files"
 
 cd ${ROOTDIR}/pipeline/output_files
 
