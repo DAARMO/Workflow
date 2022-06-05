@@ -17,7 +17,7 @@
 #SBATCH -o bigwig_INPUT.out
 #SBATCH -e bigwig_INPUT.err
 
-ROOTDIR="/projects/cancer"
+ROOT="/projects/cancer"
 IMAGES="/projects/cancer/images"
 RAWDATA="/projects/cancer/pipeline/raw_files"
 TRIMDATA="/projects/cancer/pipeline/Trim_data"
@@ -26,5 +26,6 @@ BAMDATA="/projects/cancer/pipeline/bam_files"
 
 cd ${BAMDATA}
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/envs/__deeptools@2.5.1/bin/python /tool_deps/_conda/envs/__deeptools@2.5.1/bin/bamCoverage -b sorted_unique_myc_input.bam --binSize 10 --normalizeUsingRPKM -o ${ROOTDIR}/pipeline/output_files/myc_input.bw
+# Giving a BAM file, it generates the BigWig file for its visualization
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/deepTools.simg /tool_deps/_conda/envs/__deeptools@2.5.1/bin/python /tool_deps/_conda/envs/__deeptools@2.5.1/bin/bamCoverage -b sorted_unique_myc_input.bam --binSize 10 --normalizeUsingRPKM -o ${ROOT}/pipeline/output_files/myc_input.bw
 
