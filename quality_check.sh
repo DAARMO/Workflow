@@ -17,10 +17,14 @@
 #SBATCH -o qual.out
 #SBATCH -e qual.err
 
-MAIN="/projects/cancer/pipeline"
-RAWDATA="/projects/cancer/pipeline/raw_files"
+ROOTDIR="/projects/cancer"
 IMAGES="/projects/cancer/images"
+RAWDATA="/projects/cancer/pipeline/raw_files"
+TRIMDATA="/projects/cancer/pipeline/Trim_data"
+REFGENOME="/projects/cancer/db_files"
+BAMDATA="/projects/cancer/pipeline/bam_files"
+OUTPUT="/projects/cancer/pipeline/output_files"
 
 ### FASTQC QUALITY REPORT ###
 
-singularity exec -B ${MAIN}:${MAIN} ${IMAGES}/fastqcmachalen.img fastqc ${RAWDATA}/example.fastq -o ${MAIN}/fastqc_files
+singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/fastqcmachalen.img fastqc ${RAWDATA}/example.fastq -o ${ROOTDIR}/fastqc_files
