@@ -17,7 +17,7 @@
 #SBATCH -o align.out
 #SBATCH -e align.err
 
-ROOTDIR="/projects/cancer"
+ROOT="/projects/cancer"
 IMAGES="/projects/cancer/images"
 RAWDATA="/projects/cancer/pipeline/raw_files"
 TRIMDATA="/projects/cancer/pipeline/Trim_data"
@@ -27,27 +27,27 @@ BAMDATA="/projects/cancer/pipeline/bam_files"
 cd ${TRIMDATA}
 # Alignment
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/bowtie2machalen.img bowtie2 -x ${REFGENOME}/Human_GRCh38/Human_GRCh38 -U input_hepg2_trimmed.fq -p 4 --no-unal -S ${BAMDATA}/output_input.sam
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/bowtie2machalen.img bowtie2 -x ${REFGENOME}/Human_GRCh38/Human_GRCh38 -U input_hepg2_trimmed.fq -p 4 --no-unal -S ${BAMDATA}/output_input.sam
 
 # Processing the SAM file into an indexed and sorted BAM file
 cd ${BAMDATA}
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools view -Sb output_input.sam > output_input.bam
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools view -Sb output_input.sam > output_input.bam
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools view -H output_input.bam > input_header
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools view -H output_input.bam > input_header
 
 # Select uniquely mapped reads
 # grep -v "XS:" combined with cat file - remove the rows with XS:, which represent the reads that have been aligned multiple times
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools view -F 4 output_input.bam | grep -v "XS:" | cat input_header - > unique_input.sam
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools view -F 4 output_input.bam | grep -v "XS:" | cat input_header - > unique_input.sam
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools view -Sb unique_input.sam > unique_input.bam
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools view -Sb unique_input.sam > unique_input.bam
 
 # Sort and index final BAM files
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools sort unique_input.bam -o sorted_unique_input_hepg2.bam
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools sort unique_input.bam -o sorted_unique_input_hepg2.bam
 
-singularity exec -B ${ROOTDIR}:${ROOTDIR} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools index sorted_unique_input_hepg2.bam
+singularity exec -B ${ROOT}:${ROOT} ${IMAGES}/deepTools.simg /tool_deps/_conda/pkgs/samtools-1.4.1-0/bin/samtools index sorted_unique_input_hepg2.bam
 
 # Remove sam and headers
 
